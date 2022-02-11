@@ -68,9 +68,7 @@ pret_cumparare number(8,0) DEFAULT 0,
 CONSTRAINT fk_cam_ID FOREIGN KEY (camera_ID) REFERENCES camere(camera_ID) ON DELETE CASCADE
 );
 
-
 create table istoric_doctori(
-
 doctor_ID number (8,0), 
 specializare varchar2(30) NOT NULL, 
 data_inceput date, 
@@ -80,7 +78,6 @@ PRIMARY KEY(doctor_ID, data_inceput),
 CONSTRAINT fk_specializare FOREIGN KEY(specializare) REFERENCES departamente(denumire) ON DELETE CASCADE,
 CONSTRAINT fk_dct_ID FOREIGN KEY (doctor_ID) REFERENCES doctori(doctor_ID) ON DELETE CASCADE
 );
-
 
 create table personal(
 
@@ -117,22 +114,19 @@ CONSTRAINT fk_cam1_ID FOREIGN KEY (camera_ID) REFERENCES camere(camera_ID) ON DE
 CONSTRAINT fk_pac1_ID FOREIGN KEY (pacient_ID) REFERENCES pacienti(pacient_ID) ON DELETE CASCADE,
 CONSTRAINT check_zile CHECK(zile_spitalizare>0)
 );
+
 alter table internari
 modify zile_spitalizare default 1;
 
-
 create table externari(
-
 externare_ID number(8,0) PRIMARY KEY, 
 observatii varchar2(400), 
 data date NOT NULL,
 internare_ID number(8,0) NOT NULL,
 CONSTRAINT fk_int_ID FOREIGN KEY (internare_ID) REFERENCES internari(internare_ID) ON DELETE CASCADE
-
 );
 
 create table operatii(
-
 pacient_ID number(8,0), 
 camera_ID number(8,0) NOT NULL,  
 data_op date, 
@@ -144,8 +138,8 @@ PRIMARY KEY(pacient_ID, data_op),
 CONSTRAINT fk_camera  FOREIGN KEY (camera_ID) REFERENCES camere(camera_ID) ON DELETE CASCADE,
 CONSTRAINT fk_pac3_ID FOREIGN KEY (pacient_ID) REFERENCES pacienti(pacient_ID) ON DELETE CASCADE,
 CONSTRAINT fk_docid1 FOREIGN KEY (doctor_ID) REFERENCES doctori(doctor_ID) ON DELETE CASCADE
-
 );
+
 create table consultatii(
 doctor_ID number(8,0), 
 pacient_ID number(8,0), 
@@ -158,12 +152,12 @@ CONSTRAINT fk_doc22_ID FOREIGN KEY (doctor_ID) REFERENCES doctori(doctor_ID) ON 
 CONSTRAINT fk_reteta11_ID FOREIGN KEY (reteta_ID) REFERENCES retete(reteta_ID) ON DELETE CASCADE
 );
 
-
 commit;
 
 --INSERARI
 
  alter SESSION set NLS_DATE_FORMAT = 'DD-MM-YYYY HH24:MI:SS';
+ 
 --camere
 INSERT INTO camere(CAMERA_ID, TIP, CAPACITATE, ETAJ, OBSERVATII_CAMERA) VALUES (1, 'operatii', 5, 1, null);
 INSERT INTO camere(CAMERA_ID, TIP, CAPACITATE, ETAJ, OBSERVATII_CAMERA) VALUES (2, 'internari', 10, 2, 'Cardiologie. Fara grup sanitar.');
@@ -174,8 +168,6 @@ INSERT INTO camere(CAMERA_ID, TIP, CAPACITATE, ETAJ, OBSERVATII_CAMERA) VALUES (
 INSERT INTO camere(CAMERA_ID, TIP, CAPACITATE, ETAJ, OBSERVATII_CAMERA) VALUES (7, 'cabinet', 4, 0, 'Cardiologie.');
 INSERT INTO camere(CAMERA_ID, TIP, CAPACITATE, ETAJ, OBSERVATII_CAMERA) VALUES (8, 'cabinet', 3, 0, 'Neurologie.');
 INSERT INTO camere(CAMERA_ID, TIP, CAPACITATE, ETAJ, OBSERVATII_CAMERA) VALUES (9, 'cabinet', 5, 0, 'Dermatologie.');
-
-
 
 --departamente
 INSERT INTO departamente(DENUMIRE, POSTURI_OCUPATE, POSTURI_TOTAL, ZILE_CONCEDIU) VALUES ('receptie', 2, 5, 20);
@@ -188,9 +180,6 @@ INSERT INTO departamente(DENUMIRE, POSTURI_OCUPATE, POSTURI_TOTAL, ZILE_CONCEDIU
 INSERT INTO departamente(DENUMIRE, POSTURI_OCUPATE, POSTURI_TOTAL, ZILE_CONCEDIU) VALUES ('pneumologie', 1, 5, 18);
 INSERT INTO departamente(DENUMIRE, POSTURI_OCUPATE, POSTURI_TOTAL, ZILE_CONCEDIU) VALUES ('asistente', 3, 10, 15);
 INSERT INTO departamente(DENUMIRE, POSTURI_OCUPATE, POSTURI_TOTAL, ZILE_CONCEDIU) VALUES ('infirmiere', 1, 10, 13);
-
-
-
 
 --doctori
 INSERT INTO doctori(DOCTOR_ID, NUME, PRENUME, ADRESA, TELEFON, SALARIU, SPECIALIZARE, DATA_ANGAJARE, TIP_DOCTOR) VALUES (100, 'Ionescu', 'George', 'Strada Lalelelor,  Bucuresti', '0786649201', 2600, 'cardiologie', to_date('19-01-2021'), 'consultatii');
@@ -207,7 +196,6 @@ INSERT INTO doctori(DOCTOR_ID, NUME, PRENUME, ADRESA, TELEFON, SALARIU, SPECIALI
 INSERT INTO doctori(DOCTOR_ID, NUME, PRENUME, ADRESA, TELEFON, SALARIU, SPECIALIZARE, DATA_ANGAJARE, TIP_DOCTOR) VALUES (111, 'Andronache', 'Denis', 'Strada Cailor, Ploiesti', '0767495003', 5200, 'neurologie', to_date('03-03-2010'), 'chirurg');
 
 --personal
-
 INSERT INTO personal(PERSONAL_ID, NUME, PRENUME, DEPARTAMENT, TELEFON, DATA_ANGAJARE, SALARIU) VALUES (10, 'Grigorescu', 'Ion', 'receptie', '0578573422', null, 2600);
 INSERT INTO personal(PERSONAL_ID, NUME, PRENUME, DEPARTAMENT, TELEFON, DATA_ANGAJARE, SALARIU) VALUES (11, 'Ilode', 'Georgiana', 'asistente', '0767937193', to_date('09-11-2020'), 2500);
 INSERT INTO personal(PERSONAL_ID, NUME, PRENUME, DEPARTAMENT, TELEFON, DATA_ANGAJARE, SALARIU) VALUES (12, 'Florea', 'Ana', 'asistente', '0759593018',to_date('11-10-2021') , 2800);
@@ -231,9 +219,7 @@ INSERT INTO istoric_doctori(DOCTOR_ID, SPECIALIZARE, DATA_INCEPUT, DATA_SFARSIT,
 INSERT INTO istoric_doctori(DOCTOR_ID, SPECIALIZARE, DATA_INCEPUT, DATA_SFARSIT, TIP_DOCTOR) VALUES (107, 'ginecologie', to_date('04-12-2012'), to_date('28-04-2016'), 'consultatii');
 INSERT INTO istoric_doctori(DOCTOR_ID, SPECIALIZARE, DATA_INCEPUT, DATA_SFARSIT, TIP_DOCTOR) VALUES (103, 'neurologie', to_date('19-04-2007'), to_date('07-02-2013'), 'chirurg');
 
-
 --programari
-
 INSERT INTO programari(DOCTOR_ID, PACIENT_ID, DATA_PROG) VALUES (101, 1, '10-03-2021 15:30:00');
 INSERT INTO programari(DOCTOR_ID, PACIENT_ID, DATA_PROG) VALUES (105, 4, '15-09-2020 9:00:00');
 INSERT INTO programari(DOCTOR_ID, PACIENT_ID, DATA_PROG) VALUES (105, 5, '01-08-2019 11:30:00');
@@ -247,7 +233,6 @@ INSERT INTO programari(DOCTOR_ID, PACIENT_ID, DATA_PROG) VALUES (101, 6, '25-11-
 INSERT INTO programari(DOCTOR_ID, PACIENT_ID, DATA_PROG) VALUES (108, 1, '23-06-2018 12:30:00');
 
 --retete
-
 INSERT INTO retete(RETETA_ID, MEDICAMENTE, OBSERVATII, PRET_RETETA) VALUES (111, 'med1 med2', 'de 2 ori pe zi', 300);
 INSERT INTO retete(RETETA_ID, MEDICAMENTE, OBSERVATII, PRET_RETETA) VALUES (222, 'med3 med2', null, default);
 INSERT INTO retete(RETETA_ID, MEDICAMENTE, OBSERVATII, PRET_RETETA) VALUES (333, null, 'internare+operatii', default);
@@ -259,7 +244,6 @@ INSERT INTO retete(RETETA_ID, MEDICAMENTE, OBSERVATII, PRET_RETETA) VALUES (888,
 INSERT INTO retete(RETETA_ID, MEDICAMENTE, OBSERVATII, PRET_RETETA) VALUES (999, 'med1', 'internare+operatii', 500);
 INSERT INTO retete(RETETA_ID, MEDICAMENTE, OBSERVATII, PRET_RETETA) VALUES (1111, 'med3', 'internare+operatie', 700);
 INSERT INTO retete(RETETA_ID, MEDICAMENTE, OBSERVATII, PRET_RETETA) VALUES (2222, null, 'consult de rutina, nicio afectiune', default);
-
 
 --consultatii
 INSERT INTO consultatii(DOCTOR_ID, PACIENT_ID, RETETA_ID, DATA_CONSULTATIE, AFECTIUNE) VALUES (102, 3, 111, '26-12-2012', 'af1');
@@ -273,8 +257,6 @@ INSERT INTO consultatii(DOCTOR_ID, PACIENT_ID, RETETA_ID, DATA_CONSULTATIE, AFEC
 INSERT INTO consultatii(DOCTOR_ID, PACIENT_ID, RETETA_ID, DATA_CONSULTATIE, AFECTIUNE) VALUES (108, 6, 999, '09-04-2019', 'af7');
 INSERT INTO consultatii(DOCTOR_ID, PACIENT_ID, RETETA_ID, DATA_CONSULTATIE, AFECTIUNE) VALUES (103, 2, 1111, '17-03-2014', 'af8');
 INSERT INTO consultatii(DOCTOR_ID, PACIENT_ID, RETETA_ID, DATA_CONSULTATIE, AFECTIUNE) VALUES (108, 1, 2222, '23-06-2018', 'niciuna');
-
-
 
 --aparate_medicale
 INSERT INTO aparate_medicale(APARAT_ID, CAMERA_ID, DENUMIRE, BRAND, NR_SERVICE, DATA_PRIMIRE, PRET_CUMPARARE) VALUES (1, 1, 'tub oxigen', 'BestMedicals', '0759201183', null, default);
@@ -292,17 +274,13 @@ INSERT INTO aparate_medicale(APARAT_ID, CAMERA_ID, DENUMIRE, BRAND, NR_SERVICE, 
 INSERT INTO aparate_medicale(APARAT_ID, CAMERA_ID, DENUMIRE, BRAND, NR_SERVICE, DATA_PRIMIRE, PRET_CUMPARARE) VALUES (13, 3, 'aparat electrosocuri', 'Medica', '0789184933', null, 4000);
 INSERT INTO aparate_medicale(APARAT_ID, CAMERA_ID, DENUMIRE, BRAND, NR_SERVICE, DATA_PRIMIRE, PRET_CUMPARARE) VALUES (14, 3, 'PACS', 'Medica', '0749114922', null, default);
 
-
-
 --internari
-
 INSERT INTO internari(INTERNARE_ID, PACIENT_ID, DOCTOR_ID, CAMERA_ID, OBSERVATII, DATA, ZILE_SPITALIZARE) VALUES (1, 2, 103, 2, null, '17-03-2014 13:00:00', 5);
 INSERT INTO internari(INTERNARE_ID, PACIENT_ID, DOCTOR_ID, CAMERA_ID, OBSERVATII, DATA, ZILE_SPITALIZARE) VALUES (2, 6, 108, 4, 'pacientul trebuie supravegheat mereu', '09-04-2019 09:00:00', 15);
 INSERT INTO internari(INTERNARE_ID, PACIENT_ID, DOCTOR_ID, CAMERA_ID, OBSERVATII, DATA, ZILE_SPITALIZARE) VALUES (3, 4, 103, 5, null, '10-01-2016 12:30:00', 5);
 INSERT INTO internari(INTERNARE_ID, PACIENT_ID, DOCTOR_ID, CAMERA_ID, OBSERVATII, DATA, ZILE_SPITALIZARE) VALUES (4, 4, 105, 2, 'pacientul trebuie scos la plimbare', '15-09-2020 11:00:00', 20);
 INSERT INTO internari(INTERNARE_ID, PACIENT_ID, DOCTOR_ID, CAMERA_ID, OBSERVATII, DATA, ZILE_SPITALIZARE) VALUES (5, 1, 106, 5, null, '19-10-2018 11:00:00', 5);
 INSERT INTO internari(INTERNARE_ID, PACIENT_ID, DOCTOR_ID, CAMERA_ID, OBSERVATII, DATA, ZILE_SPITALIZARE) VALUES (6, 5, 105, 4, null, '01-08-2019 12:30:00', 7);
-
 
 --externari
 --cerinta 13-- sequence
