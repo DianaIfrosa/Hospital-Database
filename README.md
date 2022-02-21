@@ -1,5 +1,5 @@
 # Hospital management Database
 
-Database created in Oracle using SQL in order to simplify the administration of a delivery company. The
-project includes examples of real-life situations solved in PL/SQL.
+Database created in Oracle using SQL in order to simplify the administration of a hospital. The
+project includes SQL queries examples of real-life situations.
 
